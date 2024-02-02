@@ -5,22 +5,25 @@
 # Built in 64-bit system
 
 ############## Setup environment variables ########################
-export HOME=`cd;pwd`
-cd $HOME/WRF
+export HOME=/home/wrf
 export DIR=$HOME/WRF/Libs
-export CC=icc
-export CXX=icpc
-export FC=ifort
-export F77=ifort
-export F90=ifort
+export CC=gcc
+export CXX=g++
+export FC=gfortran
+export F77=gfortran
+export FCFLAGS="-m64"
+export FFLAGS="-m64"
 export LDFLAGS=-L$DIR/lib
 export CPPFLAGS=-I$DIR/include
 export JASPERLIB=$DIR/lib
 export JASPERINC=$DIR/include
-export LD_LIBRARY_PATH=$DIR/lib:$LD_LIBRARY_PATH
-export PATH=$DIR/bin:$PATH
+export PATH=$DIR/bin:${PATH}
+export LD_LIBRARY_PATH=$DIR/lib:${LD_LIBRARY_PATH}
 export HDF5=$DIR
 export NETCDF=$DIR
+export WRFIO_NCD_LARGE_FILE_SUPPORT=1
+
+cd $HOME/WRF
 
 ######################## Static Geography Data inc/ Optional ####################
 # http://www2.mmm.ucar.edu/wrf/users/download/get_sources_wps_geog.html
@@ -62,8 +65,8 @@ wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/topo_gmted2010_5m.tar.bz2
 tar -xvf topo_gmted2010_5m.tar.bz2 -C $HOME/WRF/GEOG/WPS_GEOG
 
 ## export PATH and LD_LIBRARY_PATH
-#echo "export PATH=$DIR/bin:$PATH" >> ~/.bashrc
-#echo "export LD_LIBRARY_PATH=$DIR/lib:$LD_LIBRARY_PATH" >> ~/.bashrc
+#echo "export PATH=$DIR/bin:${PATH}" >> ~/.bashrc
+#echo "export LD_LIBRARY_PATH=$DIR/lib:${LD_LIBRARY_PATH}" >> ~/.bashrc
 #echo " " >> ~/.bashrc
 #echo "WRF Model" >> ~/.bashrc
 #echo "export NETCDF=/home/wrf/WRF/Libs/    # all of the WRF components want both the lib and the include directories" >> ~/.bashrc
