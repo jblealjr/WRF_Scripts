@@ -23,8 +23,6 @@ export HDF5=$DIR
 export NETCDF=$DIR
 export WRFIO_NCD_LARGE_FILE_SUPPORT=1
 
-cd $HOME/WRF
-
 ######################## Static Geography Data inc/ Optional ####################
 # http://www2.mmm.ucar.edu/wrf/users/download/get_sources_wps_geog.html
 # Double check if Irrigation.tar.gz extracted into WPS_GEOG folder
@@ -32,37 +30,44 @@ cd $HOME/WRF
 #################################################################################
 
 cd $HOME/WRF/Downloads
+mkdir -p WPS_Static
+cd WPS_Static
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_high_res_mandatory.tar.gz
-mkdir $HOME/WRF/GEOG
-tar -xvzf geog_high_res_mandatory.tar.gz -C $HOME/WRF/GEOG
+tar -xvzf geog_high_res_mandatory.tar.gz -C $HOME/WRF/
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_thompson28_chem.tar.gz
-tar -xvzf geog_thompson28_chem.tar.gz -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvzf geog_thompson28_chem.tar.gz -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_noahmp.tar.gz
-tar -xvzf geog_noahmp.tar.gz -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvzf geog_noahmp.tar.gz -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/irrigation.tar.gz
-tar -xvzf irrigation.tar.gz -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvzf irrigation.tar.gz -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_px.tar.gz
-tar -xvzf geog_px.tar.gz -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvzf geog_px.tar.gz -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_urban.tar.gz
-tar -xvzf geog_urban.tar.gz -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvzf geog_urban.tar.gz -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/geog_ssib.tar.gz
-tar -xvzf geog_ssib.tar.gz -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvzf geog_ssib.tar.gz -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/lake_depth.tar.bz2
-tar -xvf lake_depth.tar.bz2 -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvf lake_depth.tar.bz2 -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/topobath_30s.tar.bz2
-tar -xvf topobath_30s.tar.bz2 -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvf topobath_30s.tar.bz2 -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/gsl_gwd.tar.bz2
-tar -xvf gsl_gwd.tar.bz2 -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvf gsl_gwd.tar.bz2 -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/greenfrac_fpar_modis_5m.tar.bz2
-tar -xvf greenfrac_fpar_modis_5m.tar.bz2 -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvf greenfrac_fpar_modis_5m.tar.bz2 -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/modis_landuse_20class_5m_with_lakes.tar.bz2
-tar -xvf modis_landuse_20class_5m_with_lakes.tar.bz2 -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvf modis_landuse_20class_5m_with_lakes.tar.bz2 -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/soiltype_bot_5m.tar.bz2
-tar -xvf soiltype_bot_5m.tar.bz2 -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvf soiltype_bot_5m.tar.bz2 -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/soiltype_top_5m.tar.bz2
-tar -xvf soiltype_top_5m.tar.bz2 -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvf soiltype_top_5m.tar.bz2 -C $HOME/WRF/WPS_GEOG
 wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/topo_gmted2010_5m.tar.bz2
-tar -xvf topo_gmted2010_5m.tar.bz2 -C $HOME/WRF/GEOG/WPS_GEOG
+tar -xvf topo_gmted2010_5m.tar.bz2 -C $HOME/WRF/WPS_GEOG
+wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/cglc_modis_lcz_global.tar.gz
+tar -xvf cglc_modis_lcz_global.tar.gz -C $HOME/WRF/WPS_GEOG
+wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/modis_landuse_20class_15s.tar.bz2
+tar -xvf modis_landuse_20class_15s.tar.bz2 -C $HOME/WRF/WPS_GEOG
+wget -c https://www2.mmm.ucar.edu/wrf/src/wps_files/modis_landuse_20class_15s_with_lakes.tar.gz
+tar -xvf modis_landuse_20class_15s_with_lakes.tar.gz -C $HOME/WRF/WPS_GEOG
 
 ## export PATH and LD_LIBRARY_PATH
 #echo "export PATH=$DIR/bin:${PATH}" >> ~/.bashrc
