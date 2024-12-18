@@ -28,8 +28,13 @@ cd $HOME/WRF
 export WRF_EM_CORE=1                 # explicitly defines which WRF model core to build - 1 => ARW
 export WRF_DA_CORE=0                 # explicitly defines no data assimilation
 
+<<<<<<< HEAD
 ############################ WRF 4.6 #################################
 ## WRF v4.6
+=======
+############################ WRF 4.6.0 #################################
+## WRF v4.6.0
+>>>>>>> refs/remotes/origin/main
 ## Downloaded from git clone
 ########################################################################
 
@@ -41,6 +46,7 @@ cd $HOME/WRF/Downloads
 #mv WRF ../WRF-4.4.2
 
 git clone --recurse-submodules https://github.com/wrf-model/WRF
+<<<<<<< HEAD
 mv WRF ../WRF-4.6.1
 cd $HOME/WRF/WRF-4.6.1
 ./clean -a
@@ -54,6 +60,21 @@ export WRF_DIR=$HOME/WRF/WRF-4.6.1/install
 export WRF_ROOT=$HOME/WRF/WRF-4.6.1/install   # In case o compilation using cmake
 
 ############################ WPSV4.6 #####################################
+=======
+mv WRF ../WRF-4.6.0
+cd $HOME/WRF/WRF-4.6.0
+./clean -a
+./cleanCMake.sh -a
+sed -i -e 's/WRF = "FALSE" ;/WRF = "TRUE" ;/g' $HOME/WRF/WRF-4.6.0/arch/Config.pl
+sed -i -e 's/"$USENETCDFPAR" == "1"/"$USENETCDFPAR" = "1"/g' $HOME/WRF/WRF-4.6.0/configure
+./configure
+./compile -j 4 em_real
+
+export WRF_DIR=$HOME/WRF/WRF-4.6.0/install
+export WRF_ROOT=$HOME/WRF/WRF-4.6.0
+
+############################WPSV4.6#####################################
+>>>>>>> refs/remotes/origin/main
 ## WPS v4.6
 ## Downloaded from git tagged releases
 ########################################################################
