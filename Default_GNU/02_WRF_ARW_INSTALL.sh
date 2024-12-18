@@ -11,70 +11,62 @@ export CC=gcc
 export CXX=g++
 export FC=gfortran
 export F77=gfortran
-export FCFLAGS="-m64"
-export FFLAGS="-m64"
-export LDFLAGS=-L$DIR/lib
-export CPPFLAGS=-I$DIR/include
+export FCFLAGS=-m64
+export FFLAGS=-m64
 export JASPERLIB=$DIR/lib
 export JASPERINC=$DIR/include
-export PATH=$DIR/bin:${PATH}
-export LD_LIBRARY_PATH=$DIR/lib:${LD_LIBRARY_PATH}
+export NETCDF=/usr
+export HDF5=/usr/lib/x86_64-linux-gnu/hdf5/serial
+export LDFLAGS="-L/usr/lib -L/usr/lib/x86_64-linux-gnu/hdf5/serial/"
+export CPPFLAGS="-I/usr/include -I/usr/include/hdf5/serial/"
+export LD_LIBRARY_PATH=/usr/lib
+export FLEX_LIB_DIR=/usr/lib/x86_64-linux-gnu
 export WRFIO_NCD_LARGE_FILE_SUPPORT=1
-#export HDF5=$DIR      # commented for the case of default libs
-#export NETCDF=$DIR    # commented for the case of default libs
 
 cd $HOME/WRF
 
-export WRF_EM_CORE=1                 # explicitly defines which WRF model core to build - 1 => ARW
-export WRF_DA_CORE=0                 # explicitly defines no data assimilation
+export WRF_EM_CORE=1
+export WRF_DA_CORE=0
+export WRF_CHEM=0
+export WRF_KPP=0
 
-############################ WRF 4.6 #################################
-## WRF v4.6
-## Downloaded from git clone
+############################ WRF 4.6.1 #################################
+## WRF v4.6.1
+## Downloaded from git tagged releases
 ########################################################################
 
 cd $HOME/WRF/Downloads
-
-#wget -c -4 https://github.com/wrf-model/WRF/releases/download/v4.4.2/v4.4.2.tar.gz
-#mv v4.4.2.tar.gz WRF_v4.4.2.tar.gz
-#tar -xvzf WRF_v4.4.2.tar.gz
-#mv WRF ../WRF-4.4.2
 
 git clone --recurse-submodules https://github.com/wrf-model/WRF
 mv WRF ../WRF-4.6.1
 cd $HOME/WRF/WRF-4.6.1
 ./clean -a
 ./cleanCMake.sh -a
-sed -i -e 's/WRF = "FALSE" ;/WRF = "TRUE" ;/g' $HOME/WRF/WRF-4.6.1/arch/Config.pl
-sed -i -e 's/"$USENETCDFPAR" == "1"/"$USENETCDFPAR" = "1"/g' $HOME/WRF/WRF-4.6.1/configure
-./configure
-./compile -j 4 em_real
+sed -i 's#$NETCDF/lib#$NETCDF/lib/x86_64-linux-gnu#g' configure
+( echo 34 ; echo 1 ) | ./configure
+sed -i 's#-L/usr/lib -lnetcdff #-L/usr/lib/x86_64-linux-gnu -lnetcdff #g' configure.wrf
+/usr/sbin/logsave compile.log ./compile -j 4 em_real
 
-export WRF_DIR=$HOME/WRF/WRF-4.6.1/install
+export WRF_DIR=$HOME/WRF/WRF-4.6.1
 export WRF_ROOT=$HOME/WRF/WRF-4.6.1/install   # In case o compilation using cmake
 
-############################ WPSV4.6 #####################################
-## WPS v4.6
+############################ WPSV4.6.0 #####################################
+## WPS v4.6.0
 ## Downloaded from git tagged releases
 ########################################################################
 
 cd $HOME/WRF/Downloads
 git clone https://github.com/wrf-model/WPS 
-mv WPS ../WPS-4.6
-cd $HOME/WRF/WPS-4.6
+mv WPS ../WPS-4.6.0
+cd $HOME/WRF/WPS-4.6.0
 ./clean -a
-./configure	# option 17 for intel (serial)
+sed -i '163s/.*/    NETCDFF="-lnetcdff"/' configure
+echo 3 | ./configure
+/usr/sbin/logsave compile.log ./compile
 ./compile
 
 ######################## ARWpost V3.1  ############################
 # ARWpost
-#
-# Please select from among the following supported platforms.
-#
-# 1.  PC Linux i486 i586 i686 x86_64, PGI compiler
-# 2.  PC Linux i486 i586 i686 x86_64, Intel compiler
-# 3.  PC Linux i486 i586 i686 x86_64, gfortran compiler
-#
 ###################################################################
 
 ## Please execute these commands independently in the bash
@@ -85,7 +77,7 @@ tar -xvzf ARWpost_V3.tar.gz -C $HOME/WRF
 cd $HOME/WRF/ARWpost
 ./clean -a
 sed -i -e 's/-lnetcdf/-lnetcdff -lnetcdf/g' $HOME/WRF/ARWpost/src/Makefile
-./configure  
+echo 3 | ./configure  
 
 export GCC_VERSION=$(/usr/bin/gcc -dumpfullversion | awk '{print$1}')
 export GFORTRAN_VERSION=$(/usr/bin/gfortran -dumpfullversion | awk '{print$1}')
@@ -103,5 +95,5 @@ then
 fi
 
 sed -i -e 's/-C -P -traditional/-P -traditional/g' $HOME/WRF/ARWpost/configure.arwp
-./compile
+/usr/sbin/logsave compile.log ./compile
 
