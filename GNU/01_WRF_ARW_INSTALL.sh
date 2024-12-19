@@ -11,11 +11,7 @@
 #sudo apt -y install --install-recommends --install-suggests build-essential gcc gfortran g++ libtool automake autoconf make m4 default-jre default-jdk csh ksh git ncview python3 python3-dev mlocate curl cmake libcurl4-openssl-dev clang perl
 
 ##### Use the command below if you decide to install the default libraries - See Optional below
-<<<<<<< HEAD
 #sudo apt -y install --install-recommends --install-suggests libsz2 zlib1g libnetcdf-c++4 libnetcdf-c++4-dev libnetcdff-dev netcdf-bin ncview libpnetcdf-dev libhdf5-dev libhdf5-hl-100 libjpeg-dev libpng-dev mpich libhdf5-mpich-dev flex bison libopenmpi-dev libhdf5-openmpi-dev
-=======
-#sudo apt -y install --install-recommends --install-suggests libsz2 zlib1g libnetcdf-c++4 libnetcdf-c++4-dev libnetcdff-dev netcdf-bin ncview libpnetcdf-dev libhdf5-dev libhdf5-hl-100 libjpeg-dev libpng-dev mpich libhdf5-mpich-dev flex-old bison libpnetcdf-dev libnetcdf-pnetcdf-dev pnetcdf-bin
->>>>>>> refs/remotes/origin/main
 
 ############################## Preparing the Directory Environmet ############################
 export HOME=/home/wrf
@@ -163,11 +159,7 @@ rm -rf netcdf-fortran-4.6.1/
 
 cd $HOME
 chown -R wrf:wrf WRF
-<<<<<<< HEAD
   
-=======
-
->>>>>>> refs/remotes/origin/main
 ############################# Optional below ##########################################################################
 ############################# Build JasPer for the case of default libs (root environment) ############################
 export HOME=/home/wrf
